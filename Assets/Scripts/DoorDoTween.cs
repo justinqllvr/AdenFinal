@@ -32,6 +32,8 @@ public class DoorDoTween : MonoBehaviour
     [SerializeField] [TextArea]
     private string _interractionTextText;
 
+    [SerializeField]
+    private GameObject pressF = null;
 
     [SerializeField]
     private DoTweenType _doTweenType = DoTweenType.TriggerDoTween;
@@ -60,12 +62,28 @@ public class DoorDoTween : MonoBehaviour
 
     private void Update()
     {
+        if (_camera != null && Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity))
+        {
+            if (_hit.transform.gameObject.tag == "interractableHistory" || _hit.transform.gameObject.tag == "interractable")
+            {
+                pressF.SetActive(true);
+            }
+            else
+            {
+                if (GameObject.Find("pressF"))
+                {
+
+                    pressF.SetActive(false);
+                }
+            }
+        }
         //OBJECT INTERRACTABLE HISTOIRE
         if (_camera != null && _doTweenType == DoTweenType.InterractableHistoryDoTween && Input.GetKeyDown("f") && isAnimated == false && Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity))
         {
             if(_hit.transform.gameObject.tag == "interractableHistory" && _hit.transform.gameObject == _gameObjectToInterract)
             {
                 isAnimated = true;
+                _interractionText.text = _interractionTextText;
                 _targetLocation = Vector3.Scale(Camera.main.transform.forward, new Vector3(0.5f, 0.5f, 0.5f)) + Camera.main.transform.position;
                 GameState.setIsPlaying(false);
                 transform.DOMove(_targetLocation, _moveDuration).SetEase(_moveEase);
@@ -89,6 +107,7 @@ public class DoorDoTween : MonoBehaviour
             transform.DORotate(_initialRotation, _moveDuration);
             GameState.setIsPlaying(true);
             isAnimated = false;
+
         }
 
         //DOOROBJECTS
