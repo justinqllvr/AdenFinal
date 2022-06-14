@@ -12,7 +12,7 @@ public class Fade : MonoBehaviour
     
     void Start()
     {
-        Transparence = 0;
+        Transparence = 1;
     }
 
     // Update is called once per frame

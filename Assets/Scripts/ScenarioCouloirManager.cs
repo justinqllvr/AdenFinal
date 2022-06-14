@@ -96,7 +96,7 @@ public class ScenarioCouloirManager : MonoBehaviour
             mb.intensity.value = 1;
             dof.active = true;
             dof.gaussianStart.value = distanceVector*5;
-            accouphene.volume = (1 - distanceVector)* 2;
+            accouphene.volume = (float)((1 - distanceVector)/2 + 0.3);
             StarterAssets.FirstPersonController.setValue(distanceVector*4);
 
 
