@@ -15,6 +15,7 @@ public class ScenarioCouloirManager : MonoBehaviour
 
     public Volume v = null  ;
     public AudioSource accouphene;
+    public AudioSource voices;
     private Bloom b;
     private Vignette vg;
     private LensDistortion ld;
@@ -57,7 +58,7 @@ public class ScenarioCouloirManager : MonoBehaviour
     {
         Commentaire.enabled = true;
         yield return new WaitForSeconds(2);
-        Debug.Log("Start Voies");
+        voices.Play();
         yield return new WaitForSeconds(2);
         Commentaire.enabled = false;
         ColliderGo.SetActive(false);
@@ -65,7 +66,7 @@ public class ScenarioCouloirManager : MonoBehaviour
 
     private IEnumerator ChangementScene()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         accouphene.Stop();
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene("Level1");
