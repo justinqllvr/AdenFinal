@@ -46177,7 +46177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1793972578
 Transform:
   m_ObjectHideFlags: 0
@@ -54845,7 +54845,7 @@ PrefabInstance:
     - target: {fileID: 909717818435944740, guid: c99b0776aa335004e975ecf7eca3d7bf,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.84313726
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 909717818435944740, guid: c99b0776aa335004e975ecf7eca3d7bf,
         type: 3}
@@ -54870,7 +54870,7 @@ PrefabInstance:
     - target: {fileID: 909717818435944740, guid: c99b0776aa335004e975ecf7eca3d7bf,
         type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.a
-      value: 0
+      value: 0.15686275
       objectReference: {fileID: 0}
     - target: {fileID: 909717818435944740, guid: c99b0776aa335004e975ecf7eca3d7bf,
         type: 3}
@@ -54910,7 +54910,7 @@ PrefabInstance:
     - target: {fileID: 909717818435944740, guid: c99b0776aa335004e975ecf7eca3d7bf,
         type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key2.a
-      value: 0
+      value: 0.15686275
       objectReference: {fileID: 0}
     - target: {fileID: 909717818435944740, guid: c99b0776aa335004e975ecf7eca3d7bf,
         type: 3}
