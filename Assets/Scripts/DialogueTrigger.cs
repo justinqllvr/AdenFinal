@@ -20,9 +20,6 @@ public class DialogueTrigger : MonoBehaviour
 
         playerInRange = false;
         interractText.SetActive(false);
-
-        Debug.Log("dans le script");
-
     }
 
     private void Update()

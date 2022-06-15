@@ -13,7 +13,7 @@ public class Interract : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
-            if(hit.transform.gameObject.tag == "interractable" || hit.transform.gameObject.tag == "interractableHistory")
+            if(hit.transform.gameObject.tag == "interractable" || hit.transform.gameObject.tag == "interractableHistory" || hit.transform.gameObject.tag == "interractablePointChecker")
             {
                 go = hit.transform.gameObject;
                 go.GetComponent<Outline>().enabled = true;

@@ -36,7 +36,7 @@ public class ScenarioCouloirManager : MonoBehaviour
             v.profile.TryGet(out dof);
         }
        
-        StarterAssets.FirstPersonController.setValue(4);
+        StarterAssets.FirstPersonController.setValue(2);
 
         Commentaire.GetComponent<TextMeshProUGUI>().text = _interractionText.ToString();
         Commentaire.enabled = false;
@@ -45,11 +45,9 @@ public class ScenarioCouloirManager : MonoBehaviour
 
     private IEnumerator FirstCommentaire()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Commentaire.enabled = true;
-        
-        Debug.Log(Commentaire.GetComponent<TextMeshProUGUI>().text);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         Commentaire.enabled = false;
 
     }
@@ -57,8 +55,7 @@ public class ScenarioCouloirManager : MonoBehaviour
     private IEnumerator SecondCommentaire()
     {
         Commentaire.enabled = true;
-        yield return new WaitForSeconds(2);
-        voices.Play();
+        yield return new WaitForSeconds(1);
         yield return new WaitForSeconds(2);
         Commentaire.enabled = false;
         ColliderGo.SetActive(false);
@@ -66,11 +63,12 @@ public class ScenarioCouloirManager : MonoBehaviour
 
     private IEnumerator ChangementScene()
     {
-        yield return new WaitForSeconds(1);
         accouphene.Stop();
+        voices.Stop();
         yield return new WaitForSeconds(3);
+        Fade.setFadeOut(false);
         SceneManager.LoadScene("Level1");
-        StarterAssets.FirstPersonController.setValue(4);
+        StarterAssets.FirstPersonController.setValue(3);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -82,6 +80,7 @@ public class ScenarioCouloirManager : MonoBehaviour
         } else if (ColliderGo.name == "SphereEffectCollider")
         {
             accouphene.Play();
+            voices.Play();
         }
     }
 
@@ -97,13 +96,14 @@ public class ScenarioCouloirManager : MonoBehaviour
             mb.intensity.value = 1;
             dof.active = true;
             dof.gaussianStart.value = distanceVector*5;
-            accouphene.volume = (float)((1 - distanceVector)/2 + 0.3);
-            StarterAssets.FirstPersonController.setValue(distanceVector*4);
+            accouphene.volume = (float)((1 - distanceVector)/2);
+            voices.volume = (float)((1 - distanceVector) / 2 + 0.2);
+            StarterAssets.FirstPersonController.setValue(distanceVector*2);
 
 
 
             //Fin des effets et changement de scene
-            if (distanceVector < 0.3 && distanceVector > 0.01)
+            if (distanceVector < 0.4 && distanceVector > 0.01)
             {
                 Fade.setFadeOut(true);
                 StartCoroutine(ChangementScene());

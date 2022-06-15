@@ -9,16 +9,12 @@ public class PhoneAppear : MonoBehaviour
     public GameObject queteTitleUI;
     public GameObject queteUI;
     public GameObject phoneUI;
-    public static AudioClip ringSound;
-    static AudioSource audioSrc;
     public int queteDelay;
     public int tutoDelay;
     public int phoneDelay;
 
     private void Start() {
-        ringSound = Resources.Load<AudioClip> ("ring");
-        audioSrc = GetComponent <AudioSource> ();
-        StartCoroutine(queteCoroutine());
+        StartCoroutine(tutoCoroutine());
     }
 
     IEnumerator queteCoroutine() {
@@ -28,10 +24,10 @@ public class PhoneAppear : MonoBehaviour
     }
 
     IEnumerator queteEnd() {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         queteTitleUI.SetActive(false);
         queteUI.SetActive(true);
-        StartCoroutine(tutoCoroutine());
+        StartCoroutine(phoneCoroutine());
     }
 
     IEnumerator tutoCoroutine() {
@@ -41,14 +37,13 @@ public class PhoneAppear : MonoBehaviour
     }
 
     IEnumerator tutoEnd() {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         tutoUI.SetActive(false);
-        StartCoroutine(phoneCoroutine());
+        StartCoroutine(queteCoroutine());
     }
 
     IEnumerator phoneCoroutine() {
         yield return new WaitForSeconds(phoneDelay);
         phoneUI.SetActive(true);
-        audioSrc.PlayOneShot(ringSound);
     }
 }

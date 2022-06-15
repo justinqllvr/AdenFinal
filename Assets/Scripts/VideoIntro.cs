@@ -9,6 +9,7 @@ public class VideoIntro : MonoBehaviour
     void Start()
     {
         var videoPlayer = GetComponent<UnityEngine.Video.VideoPlayer>();
+        StarterAssets.FirstPersonController.setValue(2);
         videoPlayer.loopPointReached += EndReached;
     }
 

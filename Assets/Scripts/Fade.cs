@@ -13,6 +13,10 @@ public class Fade : MonoBehaviour
     void Start()
     {
         Transparence = 1;
+        if(transform.name == "Credits")
+        {
+            Transparence = 0;
+        }
     }
 
     // Update is called once per frame

@@ -44,13 +44,25 @@ public class DoorDoTween : MonoBehaviour
     private Vector3 _targetRotation;
     private RaycastHit _hit;
 
+    [SerializeField]
+    private Material PortailColor1;
+    [SerializeField]
+    private Material PortailColor2;
+    [SerializeField]
+    private GameObject queteTitle;
+    [SerializeField]
+    private GameObject queteEnvironnement;
+    [SerializeField]
+    private GameObject interdictionDePasserTexte;
+
     public static bool canOpenDoor = false;
 
     private enum DoTweenType
     {
         TriggerDoTween,
         InterractableDoTween,
-        InterractableHistoryDoTween
+        InterractableHistoryDoTween,
+        InterractablePointCheckerDoTween
     }
 
     // Start is called before the first frame update
@@ -64,7 +76,7 @@ public class DoorDoTween : MonoBehaviour
     {
         if (_camera != null && Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity))
         {
-            if (_hit.transform.gameObject.tag == "interractableHistory" || _hit.transform.gameObject.tag == "interractable")
+            if (_hit.transform.gameObject.tag == "interractableHistory" || _hit.transform.gameObject.tag == "interractable" || _hit.transform.gameObject.tag == "interractablePointChecker")
             {
                 pressF.SetActive(true);
             }
@@ -75,6 +87,16 @@ public class DoorDoTween : MonoBehaviour
 
                     pressF.SetActive(false);
                 }
+            }
+        }
+
+        //POINT CHECKER 
+        if(_camera != null && _doTweenType == DoTweenType.InterractablePointCheckerDoTween && Input.GetKeyDown("f") &&  Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity))
+        {
+            if(_hit.transform.gameObject.tag == "interractablePointChecker")
+            {
+                StartCoroutine(scenarioPointChecker());
+                _gameObjectToAnimate.GetComponent<MeshRenderer>().material = PortailColor2;
             }
         }
         //OBJECT INTERRACTABLE HISTOIRE
@@ -107,7 +129,10 @@ public class DoorDoTween : MonoBehaviour
             transform.DORotate(_initialRotation, _moveDuration);
             GameState.setIsPlaying(true);
             isAnimated = false;
-
+            if(transform.name == "document_appart_2")
+            {
+                StartCoroutine(scenarioFirstQuete());
+            }
         }
 
         //DOOROBJECTS
@@ -142,18 +167,6 @@ public class DoorDoTween : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-
-        //if (_doTweenType == DoTweenType.TriggerDoTween)
-        //{
-        //    if (other.tag == "Player")
-        //    {
-        //        _gameObjectToAnimate.transform.DOMove(_initialPosition, _moveDuration).SetEase(_moveEase);
-        //    }
-        //}
-    }
-
     private IEnumerator MoveWithBothWays()
     {
         _gameObjectToAnimate.transform.DOMove(_targetLocation, _moveDuration).SetEase(_moveEase);
@@ -161,6 +174,29 @@ public class DoorDoTween : MonoBehaviour
         _gameObjectToAnimate.transform.DOMove(_initialPosition, _moveDuration).SetEase(_moveEase);
     }
 
+    private IEnumerator scenarioPointChecker()
+    {
+        yield return new WaitForSeconds(1);
+        interdictionDePasserTexte.SetActive(true);
+        yield return new WaitForSeconds(5);
+        interdictionDePasserTexte.SetActive(false);
+        yield return new WaitForSeconds(1);
+        queteTitle.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Trouver un autre moyen d'aller au metro";
+        queteTitle.SetActive(true);
+        yield return new WaitForSeconds(4);
+        queteTitle.SetActive(false);
+    }
+
+    private IEnumerator scenarioFirstQuete()
+    {
+        yield return new WaitForSeconds(1);
+        queteTitle.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Livrez le document à votre chef";
+        queteTitle.SetActive(true);
+        yield return new WaitForSeconds(2);
+        queteEnvironnement.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Livrez le document à votre chef";
+        yield return new WaitForSeconds(3);
+        queteTitle.SetActive(false);
+    }
     public static bool getCanOpenDoor()
     {
         return canOpenDoor;

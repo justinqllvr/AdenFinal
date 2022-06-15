@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Ink.Runtime;
+// using Ink.Runtime;
 using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
@@ -14,8 +14,8 @@ public class DialogueManager : MonoBehaviour
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
-    
-    private Story currentStory;
+
+    // private Story currentStory;
 
     public bool dialogueIsPlaying;
 
@@ -54,15 +54,15 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
-        if(currentStory.currentChoices.Count == 0 && Input.GetKeyDown("e"))
-        {
-            ContinueStory();
-        }
+        //  if(currentStory.currentChoices.Count == 0 && Input.GetKeyDown("e"))
+        //   {
+        //   ContinueStory();
+        //  }
     }
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
-        currentStory = new Story(inkJSON.text);
+        //  currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
 
@@ -80,32 +80,32 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueStory()
     {
-        if (currentStory.canContinue)
-        {
-            dialogueText.text = currentStory.Continue();
-            DisplayChoices();
-        }
-        else
-        {
-            StartCoroutine(ExitDialogueMode());
-        }
+        //  if (currentStory.canContinue)
+        // {
+        //  dialogueText.text = currentStory.Continue();
+        //  DisplayChoices();
+        // }
+        //     else
+        //     {
+        //      //     StartCoroutine(ExitDialogueMode());
+        //  }
     }
 
     private void DisplayChoices()
     {
-        List<Choice> currentchoices = currentStory.currentChoices;
-        if (currentchoices.Count > choices.Length)
-        {
-            Debug.LogError("Y a trop de choix que y a de panel UI pour supporter");
-        }
+        //  List<Choice> currentchoices = currentStory.currentChoices;
+        //  if (currentchoices.Count > choices.Length)
+        //   {
+        //   Debug.LogError("Y a trop de choix que y a de panel UI pour supporter");
+        //   }
 
         int index = 0;
-        foreach (Choice choice in currentchoices)
-        {
-            choices[index].gameObject.SetActive(true);
-            choicesText[index].text = choice.text;
-            index++;
-        }
+        //   foreach (Choice choice in currentchoices)
+        //   {
+        //  choices[index].gameObject.SetActive(true);
+        //  choicesText[index].text = choice.text;
+        //  index++;
+        // }
 
         for (int i = index; i < choices.Length; i++)
         {
@@ -127,7 +127,7 @@ public class DialogueManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         Debug.Log(choiceIndex);
-        currentStory.ChooseChoiceIndex(choiceIndex);
+        // currentStory.ChooseChoiceIndex(choiceIndex);
         ContinueStory();
     }
 
